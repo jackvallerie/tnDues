@@ -1,45 +1,81 @@
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+# FlaskUser: provides login and password and stuff
+from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
 
-app = Flask(__name__)
+class ConfigClass(object):
+  SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:////tmp/test.db')
+  SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS', 'False')
+  SECRET_KEY = os.getenv('SECRET_KEY', 'SOMETHING')
+  USER_APP_NAME = os.getenv('USER_APP_NAME', 'Tallodfasfires')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
-db = SQLAlchemy(app)
+def create_app():
+  app = Flask(__name__)
+  app.config.from_object(__name__+'.ConfigClass')
+  db = SQLAlchemy(app)
 
-# DY: We should really talk through these (are they the right data?)
-class User(db.Model):
-  # Do we need both id and username? We should probably only have one ID,
-  # that should be the login name
-  id = db.Column(db.String(16), primary_key=True)
-  username = db.Column(db.String(80), unique=True)
-  country = db.Column(db.String(50)) # should probably be a FOREIGN KEY
-  institution = db.Column(db.String(80)) # should also probably be a FOREIGN KEY
-  firstName = db.Column(db.String(16))
-  lastName = db.Column(db.String(24))
-  prefix = db.Column(db.String(8))
-  email = db.Column(db.String(120), unique=True)
-  position = db.Column(db.String(40))
-  phone = db.Column(db.Integer()) # maybe there's a special type for phone number (revisit later please)
-  paid = db.Column(db.Boolean())
-  # we don't want the transaction to be in here, because it'd be a list in a table (not good to work with). Instead, we lookup using the class below.
+  class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
 
-class Transaction(db.Model):
-  id = db.Column(db.Integer(), primary_key=True)
-  username = db.Column(db.String(80), unique=True)
-  country = db.Column(db.String(50)) # should probably be a FOREIGN KEY
-  institution = db.Column(db.String(80)) # should also probably be a FOREIGN KEY
-  firstName = db.Column(db.String(16))
-  lastName = db.Column(db.String(24))
-  prefix = db.Column(db.String(8))
-  email = db.Column(db.String(120), unique=True)
-  position = db.Column(db.String(40))
-  phone = db.Column(db.Integer()) # maybe there's a special type for phone number (revisit later please)  
+    # User authentication information
+    username = db.Column(db.String(50), nullable=False, unique=True)
+    password = db.Column(db.String(255), nullable=False, server_default='')
+    reset_password_token = db.Column(db.String(100), nullable=False, server_default='')
+    country = db.Column(db.String(50)) # should probably be a FOREIGN KEY
 
-class Country(db.Model):
-  id = db.Column(db.String(50), primary_key=True)
-  price = db.Column(db.Float())
+    # User email information
+    email = db.Column(db.String(255), nullable=False, unique=True)
+    # FlaskUser defined field (necessary?) confirmed_at = db.Column(db.DateTime())
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
-    
+    # User information
+    # FlaskUser defined field (necessary?) active = db.Column('is_active', db.Boolean(), nullable=False, server_default='0')
+    institution = db.Column(db.String(80), nullable=False) # should also probably be a FOREIGN KEY
+    prefix = db.Column(db.String(8))
+    first_name = db.Column(db.String(50), nullable=False, server_default='')
+    last_name = db.Column(db.String(127), nullable=False, server_default='')
+    position = db.Column(db.String(127))
+    phone = db.Column(db.Integer()) # maybe there's a special type in SQLAlchemy for phone number (revisit later please)
+
+    # a list of transaction FOREIGN keys, pointing to the table below
+    transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
+
+  class Transaction(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    amt = db.Column(db.Float())
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+
+  class Country(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(40))
+    price = db.Column(db.Float())
+
+  class Institution(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+
+  db.create_all() # create all the models
+
+  db_adapter = SQLAlchemyAdapter(db, User)        # Register the User model
+  user_manager = UserManager(db_adapter, app)     # Initialize Flask-User
+
+  @app.route('/')
+  @login_required
+  def hello_world():
+    return render_template_string("""
+      {% extends "layout.html" %}
+      {% block content %}
+          <h2>Members page</h2>
+          <p>This page can only be accessed by authenticated users.</p><br/>
+          <p><a href={{ url_for('home_page') }}>Home page</a> (anyone)</p>
+          <p><a href={{ url_for('members_page') }}>Members page</a> (login required)</p>
+      {% endblock %}
+      """)
+
+
+  return app
+
+
+if __name__=='__main__':
+  app = create_app()
+  app.run(host='127.0.0.1', port=5000, debug=True)
