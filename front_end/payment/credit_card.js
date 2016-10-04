@@ -62,10 +62,15 @@ function payWithStripe(e) {
             $form.find('.payment-errors').closest('.row').hide();
             $form.find('.payment-errors').text("");
             // response contains id and card, which contains additional card details
-            console.log(response.id);
+            console.log(response.id); // Response.id is the card token
             console.log(response.card);
             var token = response.id;
+
+            // The above function sends to the stripe authentication server
+            // and get back a token. We then use this token to send to the
+            // server. The server then uses the token to synchronize the payment
             // AJAX - you would send 'token' to your server here.
+            // This is the URL to our REST api
             $.post('/account/stripe_card_token', {
                     token: token
                 })
