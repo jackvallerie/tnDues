@@ -9,19 +9,19 @@ request to Stripe
 
 - There will be a PublishableKey that stripe uses to recognize the origin of the
 website where card info comes from (only our website can have this key)
-
+```
 <script type="text/javascript">
   Stripe.setPublishableKey('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
 </script>
-
+```
 - User keys in card information. Some functions in Stripe.js send the card info
 to the server
-'''
+```
 Stripe.card.createToken(ccData, function stripeResponseHandler(status, response)
-'''
+```
 
 The stripe server returns (response text)
-'''
+```
 {
   id: "tok_u5dg20Gra", // Token identifier
   card: {...}, // Dictionary of the card used to create the token
@@ -31,20 +31,20 @@ The stripe server returns (response text)
   object: "token", // Type of object, always "token"
   used: false // Whether this token has been used
 }
-'''
+```
 We then need to send the token identifier to the server.
-'''
+```
 $.post('/account/stripe_card_token', {
         token: token
     })
-'''
+```
 
 ## BACKEND
 - In the server, we can charge the user with the given card token. Stripe has
 detailed documentation on how to work with flask.
 https://stripe.com/docs/checkout/flask
 
-'''
+```
 import os
 from flask import Flask, render_template, request
 import stripe
@@ -55,11 +55,11 @@ stripe_keys = {
 }
 
 stripe.api_key = stripe_keys['secret_key'] # This secret key is only in our server
-'''
+```
 
 Assuming our api url is /charge. The POST data is the card token (generated
 by stripe)
-'''
+```
 @app.route('/charge', methods=['POST'])
 def charge():
     amount = 500 # Amount of money being charged
@@ -78,4 +78,4 @@ def charge():
 
     return render_template('charge.html', amount=amount)
     # This is only to send back to the front end saying "You've been charged"
-'''
+```
