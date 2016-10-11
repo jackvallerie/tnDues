@@ -8,7 +8,7 @@ class ConfigClass(object):
   SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:////tmp/test.db')
   SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS', 'False')
   SECRET_KEY = os.getenv('SECRET_KEY', 'SOMETHING')
-  USER_APP_NAME = os.getenv('USER_APP_NAME', 'Tallodfasfires')
+  USER_APP_NAME = 'Tallodfasfires'
 
 def create_app():
   app = Flask(__name__)
@@ -59,20 +59,18 @@ def create_app():
   db_adapter = SQLAlchemyAdapter(db, User)        # Register the User model
   user_manager = UserManager(db_adapter, app)     # Initialize Flask-User
 
-  @app.route('/')
+  @app.route('/user/sign-in')
   @login_required
   def hello_world():
     return render_template_string("""
-      {% extends "layout.html" %}
-      {% block content %}
+      {% extends "base.html" %}
+      {% block body %}
           <h2>Members page</h2>
           <p>This page can only be accessed by authenticated users.</p><br/>
           <p><a href={{ url_for('home_page') }}>Home page</a> (anyone)</p>
           <p><a href={{ url_for('members_page') }}>Members page</a> (login required)</p>
       {% endblock %}
       """)
-
-
   return app
 
 
