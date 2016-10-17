@@ -3,17 +3,30 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 # FlaskUser: provides login and password and stuff
 from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
+from flask_user.forms import RegisterForm
+from wtforms import StringField, SubmitField, validators
+from flask_mail import Mail
+
 
 class ConfigClass(object):
   SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:////tmp/test.db')
   SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS', 'False')
   SECRET_KEY = os.getenv('SECRET_KEY', 'SOMETHING')
-  USER_APP_NAME = 'Tallodfasfires'
+  USER_APP_NAME = 'The Talloires Network'
+  # Flask-Mail settings
+  MAIL_USERNAME = os.getenv('MAIL_USERNAME', 'tuftstalloiresnetwork@gmail.com')
+  MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', 'Talloires1')
+  MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', '"The Talloires Network" <noreply@example.com>')
+  MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
+  MAIL_PORT = int(os.getenv('MAIL_PORT', '465'))
+  MAIL_USE_SSL = int(os.getenv('MAIL_USE_SSL', True))
+
 
 def create_app():
   app = Flask(__name__)
   app.config.from_object(__name__+'.ConfigClass')
   db = SQLAlchemy(app)
+  mail = Mail(app)
 
   class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,7 +51,13 @@ def create_app():
     phone = db.Column(db.Integer()) # maybe there's a special type in SQLAlchemy for phone number (revisit later please)
 
     # a list of transaction FOREIGN keys, pointing to the table below
-    transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
+    # transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
+
+  class MyRegisterForm(RegisterForm):
+    first_name = StringField('First name')
+    last_name  = StringField('Last name')
+    institution  = StringField('Institution')
+
 
   class Transaction(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
@@ -56,10 +75,10 @@ def create_app():
 
   db.create_all() # create all the models
 
-  db_adapter = SQLAlchemyAdapter(db, User)        # Register the User model
-  user_manager = UserManager(db_adapter, app)     # Initialize Flask-User
+  db_adapter = SQLAlchemyAdapter(db, UserClass=User)        # Register the User model
+  user_manager = UserManager(db_adapter, app, register_form=MyRegisterForm)
 
-  @app.route('/user/sign-in')
+  @app.route('/')
   @login_required
   def hello_world():
     return render_template_string("""
