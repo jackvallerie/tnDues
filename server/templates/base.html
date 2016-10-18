@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Derick</title>
+    <title>The Talloires Network</title>
     <!-- BASE FOR INCLUDING JAVASCRIPT FILES -->
     <script type="text/javascript" src="{{ url_for('static', filename='thing.js')}}"></script>
     <!-- Bootstrap -->
@@ -30,7 +30,7 @@
 <body>
     {% block body %}
     <div id="header-div" class="clearfix with-margins">
-        <div class="pull-left"><a href="/"><h1 class="no-margins">Talloiresdfsafds</h1></a></div>
+        <div class="pull-left"><a href="/"><h1 class="no-margins">Welcome to the Talloires Network</h1></a></div>
         <div class="pull-right">
             {% if call_or_get(current_user.is_authenticated) %}
                 <a href="{{ url_for('user.profile') }}">{{ current_user.username }}</a>
@@ -51,7 +51,6 @@
     {% endblock %}
     <hr class="no-margins"/>
 
-    <div id="main-div" class="with-margins">
     {# One-time system messages called Flash messages #}
     {% block flash_messages %}
         {%- with messages = get_flashed_messages(with_categories=true) -%}
@@ -65,15 +64,16 @@
             {% endif %}
         {%- endwith %}
     {% endblock %}
-
-    {% block main %}{% block content %}{% endblock %}{% endblock %}
+    {% block main %}
+    <div class="container">
+    {% block content %}{% endblock %}
     </div>
-
+    {% endblock %}
     <br/>
     <hr class="no-margins"/>
     <div id="footer-div" class="clearfix with-margins">
         <div class="pull-left">&copy; Copyright 2016 Talloires Network</div>
-        <div class="pull-right">&copy; fdsa that dsaf</div>
+        <!-- <div class="pull-right">&copy; fdsa that dsaf</div> -->
     </div>
     {% endblock %}
 
