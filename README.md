@@ -18,3 +18,8 @@ Running the server:
 python app.py
 ```
 The server runs at localhost:5000
+
+Connect to database:
+```
+sqlite3 /tmp/test.db
+```
