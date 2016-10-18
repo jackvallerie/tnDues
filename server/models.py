@@ -25,6 +25,9 @@ class User(db.Model, UserMixin):
   last_name = db.Column(db.String(127), nullable=False, server_default='')
   position = db.Column(db.String(127))
   phone = db.Column(db.Integer()) # maybe there's a special type in SQLAlchemy for phone number (revisit later please)
+  is_enabled = db.Column(db.Boolean(), nullable=False, default=False)
+  def is_active(self):
+    return self.is_enabled
 
   # a list of transaction FOREIGN keys, pointing to the table below
   # transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
