@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template_string
 from flask_sqlalchemy import SQLAlchemy
 # FlaskUser: provides login and password and stuff
 from flask_user import login_required, UserManager, UserMixin, SQLAlchemyAdapter
@@ -39,10 +39,10 @@ def create_app():
 
     # User email information
     email = db.Column(db.String(255), nullable=False, unique=True)
-    # FlaskUser defined field (necessary?) confirmed_at = db.Column(db.DateTime())
+
+    confirmed_at = db.Column(db.DateTime())
 
     # User information
-    # FlaskUser defined field (necessary?) active = db.Column('is_active', db.Boolean(), nullable=False, server_default='0')
     institution = db.Column(db.String(80), nullable=False) # should also probably be a FOREIGN KEY
     prefix = db.Column(db.String(8))
     first_name = db.Column(db.String(50), nullable=False, server_default='')
@@ -86,8 +86,8 @@ def create_app():
       {% block body %}
           <h2>Members page</h2>
           <p>This page can only be accessed by authenticated users.</p><br/>
-          <p><a href={{ url_for('home_page') }}>Home page</a> (anyone)</p>
-          <p><a href={{ url_for('members_page') }}>Members page</a> (login required)</p>
+          <p><a href={{ url_for('user.register') }}>Home page</a> (anyone)</p>
+          <p><a href={{ url_for('user.profile') }}>Members page</a> (login required)</p>
       {% endblock %}
       """)
   return app
