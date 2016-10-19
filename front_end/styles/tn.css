@@ -1,0 +1,17 @@
+
+@font-face {
+    font-family: Mekanik;
+    src: url(MekanikPlain.ttf);
+}
+
+.navbar {
+        background-color: #FAFAFA;
+        color: rgba(0, 0, 0, 0.7);
+        opacity: 0.7;
+        height: 75px;
+}
+
+body {
+        background-image: url("cat.jpg");
+        font-family: Mekanik;
+}
