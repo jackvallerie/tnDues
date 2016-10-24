@@ -10,7 +10,7 @@ class ConfigClass(object):
   CSRF_ENABLED = True
 
   USER_APP_NAME = 'The Talloires Network'
-  # Flask-Mail settings
+  # Flask-Mail settings 
   MAIL_USERNAME = os.getenv('MAIL_USERNAME', 'tuftstalloiresnetwork@gmail.com')
   MAIL_PASSWORD = os.getenv('MAIL_PASSWORD', 'Talloires1')
   MAIL_DEFAULT_SENDER = os.getenv('MAIL_DEFAULT_SENDER', '"The Talloires Network" <noreply@example.com>')
@@ -19,6 +19,7 @@ class ConfigClass(object):
   MAIL_USE_SSL = int(os.getenv('MAIL_USE_SSL', True))
 
 app = Flask(__name__)
+app.config.from_object(__name__+'.ConfigClass')
 db = SQLAlchemy(app)
 mail = Mail(app)
-app.config.from_object(__name__+'.ConfigClass')
+
