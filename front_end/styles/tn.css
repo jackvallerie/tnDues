@@ -1,17 +1,31 @@
 
 @font-face {
     font-family: Mekanik;
-    src: url(MekanikPlain.ttf);
+    src: url(mekanik_plain.ttf);
 }
 
-.navbar {
-        background-color: #FAFAFA;
-        color: rgba(0, 0, 0, 0.7);
-        opacity: 0.7;
-        height: 75px;
+.right .menu .item{
+        font-size: 50px;
+
 }
+
+#tnicon {
+        height: 125px;
+        width: 500px;
+}
+
+.menu {
+        opacity: 0.7;
+        height: 125px;
+        background-color : transparent;
+}
+
+
 
 body {
-        background-image: url("cat.jpg");
+        background: url("tn.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         font-family: Mekanik;
 }
