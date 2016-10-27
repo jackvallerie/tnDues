@@ -1,0 +1,8 @@
+Color Code rgb(70,148,209)
+Color For Buttons rgb(70,148,209,0.7)
+Color of division Line rgb(0,0,0,0.7)
+Corners of buttons: border-radius: 5px;
+font-stretch: expanded;
+
+Mock up
+https://projects.invisionapp.com/share/JY8TEBP2Q#/screens

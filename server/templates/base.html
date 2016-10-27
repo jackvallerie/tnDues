@@ -1,85 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The Talloires Network</title>
-    <!-- BASE FOR INCLUDING JAVASCRIPT FILES -->
-    <script type="text/javascript" src="{{ url_for('static', filename='thing.js')}}"></script>
-    <!-- Bootstrap -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<html>
+<head>
+        <title>The Talloires Network</title>
+        <link rel="stylesheet" type="text/css" href="/static/semantic.min.css">
 
-    <!-- In-lining styles to avoid needing a separate .css file -->
-    <style>
-        hr { border-color: #cccccc; margin: 0; }
-        .no-margins { margin: 0px; }
-        .with-margins { margin: 10px; }
-        .col-centered { float: none; margin: 0 auto; }
-    </style>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
-    <![endif]-->
-  </head>
-
+        <link rel="stylesheet" type="text/css" href="/static/styles/tn.css">
+        <script src="/static/semantic.min.js"></script>
+</head>
 
 <body>
-    {% block body %}
-    <div id="header-div" class="clearfix with-margins">
-        <div class="pull-left"><a href="/"><h1 class="no-margins">Welcome to the Talloires Network</h1></a></div>
-        <div class="pull-right">
-            {% if call_or_get(current_user.is_authenticated) %}
-                <a href="{{ url_for('user.profile') }}">{{ current_user.username }}</a>
-                &nbsp; | &nbsp;
-                <a href="{{ url_for('user.logout') }}">Sign out</a>
-            {% else %}
-                <a href="{{ url_for('user.login') }}">Sign in</a>
-            {% endif %}
+
+<div class="ui grid">
+    <div class="row">
+        <div class="ui small fixed borderless menu navbar page">
+        <div class="left menu">
+            <a href="" class="item">The Talloires Network</a>
+        </div>
+        <div class="right menu">
+            <a href="{{url_for('index')}}" class="item">Home</a>
+            <a href="{{url_for('about')}}" class="item">About</a>
+            <a href="{{url_for('user.register')}}" class="item">Join us</a>
+            <a href="{{url_for('programs')}}" class="item">Programs</a>
+            <a href="{{url_for('user.login')}}" class="item">Members & Partners</a>
+            <a href="http://talloiresnetwork.tufts.edu/blog/category/news/" class="item">Blog</a>
+            <a href="#" class="item">Resources</a>
+            <a href="#" class="item">Contact us</a>
+            <div class="ui search item">
+              <div class="ui icon input">
+                <input class="prompt" type="text" placeholder="Search...">
+                <i class="search icon"></i>
+              </div>
+            </div>
+        </div>
         </div>
     </div>
-    {% block menu %}
-    <div id="menu-div" class="with-margins">
-        <a href="/">Home</a>
-        {% if call_or_get(current_user.is_authenticated) %}
-            &nbsp; | &nbsp; <a href="{{ url_for('user.profile') }}">User profile</a>
-        {% endif %}
-    </div>
-    {% endblock %}
-    <hr class="no-margins"/>
+</div>
+{% block content %}
+{% endblock %}
+</body>
 
-    {# One-time system messages called Flash messages #}
-    {% block flash_messages %}
-        {%- with messages = get_flashed_messages(with_categories=true) -%}
-            {% if messages %}
-                {% for category, message in messages %}
-                    {% if category=='error' %}
-                        {% set category='danger' %}
-                    {% endif %}
-                    <div class="alert alert-{{category}}">{{ message|safe }}</div>
-                {% endfor %}
-            {% endif %}
-        {%- endwith %}
-    {% endblock %}
-    {% block main %}
-    <div class="container">
-    {% block content %}{% endblock %}
-    </div>
-    {% endblock %}
-    <br/>
-    <hr class="no-margins"/>
-    <div id="footer-div" class="clearfix with-margins">
-        <div class="pull-left">&copy; Copyright 2016 Talloires Network</div>
-        <!-- <div class="pull-right">&copy; fdsa that dsaf</div> -->
-    </div>
-    {% endblock %}
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  </body>
 </html>
