@@ -2,12 +2,15 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
 class ConfigClass(object):
   SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:////tmp/test.db')
   SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS', 'False')
   SECRET_KEY = os.getenv('SECRET_KEY', 'SOMETHING')
-  CSRF_ENABLED = True
+  # CSRF_ENABLED = True
 
   USER_APP_NAME = 'The Talloires Network'
   # Flask-Mail settings 

@@ -29,6 +29,24 @@ class User(db.Model, UserMixin):
   def is_active(self):
     return self.is_enabled
 
+  def serialize(self):
+    return {
+      "id": self.id,
+      "username": self.username,
+      # "password": self.password,
+      "reset_password_token": self.reset_password_token,
+      "country": self.country,
+      "email": self.email,
+      "confirmed_at": self.confirmed_at,
+      "institution": self.institution,
+      "prefix": self.prefix,
+      "first_name": self.first_name,
+      "last_name": self.last_name,
+      "position": self.position,
+      "phone": self.phone,
+      "is_enabled": self.is_enabled
+    }    
+
   # a list of transaction FOREIGN keys, pointing to the table below
   # transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
 
@@ -42,15 +60,33 @@ class Transaction(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
   amt = db.Column(db.Float())
   user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+  def serialize(self):
+    return {
+      "id": self.id,
+      "amt": self.amt,
+      "user_id": self.user_id
+    }
 
 class Country(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
   name = db.Column(db.String(40))
   price = db.Column(db.Float())
+  def serialize(self):
+    return {
+      "id": self.id,
+      "name": self.name,
+      "price": self.price
+    }
+
 
 class Institution(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
   name = db.Column(db.String(80), nullable=False)
+  def serialize(self):
+    return {
+      "id": self.id,
+      "name": self.name
+    }
 
 db.create_all() # create all the models
 
