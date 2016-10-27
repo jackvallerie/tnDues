@@ -1,4 +1,4 @@
-from flask import render_template_string, render_template
+from flask import render_template_string, render_template, request
 from config import *
 from flask_user import login_required
 

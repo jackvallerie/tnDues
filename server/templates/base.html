@@ -1,7 +1,7 @@
 <html>
 <head>
         <title>The Talloires Network</title>
-        <link rel="stylesheet" type="text/css" href="/static/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="/static/semantic.css">
 
         <link rel="stylesheet" type="text/css" href="/static/styles/tn.css">
         <script src="/static/semantic.min.js"></script>
@@ -12,9 +12,11 @@
 <div class="ui grid">
     <div class="row">
         <div class="ui small fixed borderless menu navbar page">
+        {% if request.path != "/" %}
         <div class="left menu">
             <a href="" class="item">The Talloires Network</a>
         </div>
+        {% endif %}
         <div class="right menu">
             <a href="{{url_for('index')}}" class="item">Home</a>
             <a href="{{url_for('about')}}" class="item">About</a>
@@ -33,9 +35,10 @@
         </div>
         </div>
     </div>
-</div>
+
 {% block content %}
 {% endblock %}
+</div>
 </body>
 
 </html>

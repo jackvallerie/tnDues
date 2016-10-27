@@ -4,7 +4,8 @@
 {% from "flask_user/_macros.html" import render_field, render_submit_field %}
 <h1>{%trans%}Register{%endtrans%}</h1>
 
-<form action="" method="POST" novalidate formnovalidate class="form" role="form">
+<form action="" method="POST" novalidate formnovalidate class="form" role="form" class"ui form">
+    <h4 class="ui dividing header">Shipping Information</h4>
     {{ form.hidden_tag() }}
 
     {# Username or Email #}
