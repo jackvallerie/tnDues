@@ -12,7 +12,8 @@ def users():
     return get_users()
   elif request.method == 'PUT':
     return update_user()
-  
+
+# get all the users
 def get_users():
   users = User.query.all()
   userlist = []
@@ -20,6 +21,7 @@ def get_users():
     userlist.append(user.serialize())
   return jsonify(userlist)
 
+# update a user's information
 def update_user():
   return ''
 
@@ -35,6 +37,7 @@ def institutions():
   elif request.method == 'PUT':
     return update_institution()
 
+# get all institutions
 def get_institutions():
   institutions = Institution.query.all()
   institutionlist = []
@@ -42,13 +45,16 @@ def get_institutions():
     institutionlist.append(institution.serialize())
   return jsonify(institutionlist)
 
+# insert a new institution
 def post_institution():
   newinst = Institution()
+  # do error checking! (might not exist)
   newinst.name = request.form['name']
   db.session.add(newinst)
   db.session.commit()
   return jsonify(newinst.serialize())
 
+# update an existing institution
 def update_institution():
   inst = Institution.query.get(request.form['id'])
   newname = request.form['name']
@@ -67,6 +73,7 @@ def transactions():
   elif request.method == 'POST':
     return post_transaction()
 
+# get all transactions
 def get_transactions():
   transactions = Transaction.query.all()
   transactionlist = []
@@ -74,8 +81,14 @@ def get_transactions():
     transactionlist.append(transaction.serialize())
   return jsonify(transactionlist)
 
+# insert a new transaction
 def post_transaction():
-  return ''
+  newtrans = Transaction()
+  newtrans.amt = request.form['amt']
+  newtrans.user_id = request.form['user_id']
+  db.session.add(newtrans)
+  db.session.commit()
+  return jsonify(newtrans.serialize())
 
 ##################################################
 # COUNTRIES
@@ -97,7 +110,19 @@ def get_countries():
   return jsonify(countrylist)
 
 def post_country():
-  return ''
+  newcountry = Country()
+  newcountry.name = request.form['name']
+  newcountry.price = request.form['price']
+  db.session.add(newcountry)
+  db.session.commit()
+  return jsonify(newcountry.serialize())
 
 def update_country():
-  return ''
+  country = Country.query.get(request.form['id'])
+  newname = request.form['name']
+  newprice = request.form['price']
+  if newname:
+    country.name = newname
+  if newprice:
+    country.price = newprice
+  return jsonify(country.serialize())
