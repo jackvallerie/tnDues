@@ -1,7 +1,6 @@
 from flask import jsonify, request
 from config import *
 from flask_user import login_required
-from models import db
 from models import *
 
 ##################################################
@@ -44,10 +43,19 @@ def get_institutions():
   return jsonify(institutionlist)
 
 def post_institution():
-  return ''
+  newinst = Institution()
+  newinst.name = request.form['name']
+  db.session.add(newinst)
+  db.session.commit()
+  return jsonify(newinst.serialize())
 
 def update_institution():
-  return ''
+  inst = Institution.query.get(request.form['id'])
+  newname = request.form['name']
+  if newname:
+    inst.name = newname
+  db.session.commit()
+  return jsonify(inst.serialize())
 
 ##################################################
 # TRANSACTIONS
