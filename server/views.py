@@ -25,35 +25,4 @@ def about():
 @app.route('/programs')
 def programs():
     return render_template('programs.html')
-
-@app.route('/api/users')
-def get_users():
-    users = User.query.all()
-    userlist = []
-    for user in users:
-      userlist.append(user.serialize())
-    return jsonify(userlist)
-
-@app.route('/api/institutions')
-def get_institutions():
-    institutions = Institution.query.all()
-    institutionlist = []
-    for institution in institutions:
-      institutionlist.append(institution.serialize())
-    return jsonify(institutionlist)
-
-@app.route('/api/transactions')
-def get_transactions():
-    transactions = Transaction.query.all()
-    transactionlist = []
-    for transaction in transactions:
-      transactionlist.append(transaction.serialize())
-    return jsonify(transactionlist)
-
-@app.route('/api/countries')
-def get_countries():
-    countries = Country.query.all()
-    countrylist = []
-    for country in countries:
-      countrylist.append(country.serialize())
-    return jsonify(countrylist)
+    
