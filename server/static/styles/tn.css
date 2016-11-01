@@ -6,7 +6,6 @@
 
 .right .menu .item{
         font-size: 50px;
-
 }
 
 #tnicon {
@@ -14,18 +13,21 @@
         width: 500px;
 }
 
-.menu {
+#navbar {
         opacity: 0.7;
-        height: 125px;
+        height: 100px;
         background-color : transparent;
 }
 
+.ui#container{
+        padding-top: 500px;
+}
 
 
-body {
+/*body {
         background: url("tn.jpg") no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
         font-family: Mekanik;
-}
+}*/

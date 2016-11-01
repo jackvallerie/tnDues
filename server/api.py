@@ -1,7 +1,7 @@
 from flask import jsonify, request
-from config import *
+from .config import *
 from flask_user import login_required
-from models import *
+from .models import *
 
 ##################################################
 # USERS

@@ -1,4 +1,4 @@
-from config import *
+from .config import *
 from flask_user import UserMixin, SQLAlchemyAdapter, UserManager
 from flask_user.forms import RegisterForm
 from wtforms import StringField, SubmitField, validators
@@ -45,7 +45,7 @@ class User(db.Model, UserMixin):
       "position": self.position,
       "phone": self.phone,
       "is_enabled": self.is_enabled
-    }    
+    }
 
   # a list of transaction FOREIGN keys, pointing to the table below
   # transactions = db.relationship('Transaction', backref='user', lazy='dynamic')

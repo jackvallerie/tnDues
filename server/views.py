@@ -1,8 +1,8 @@
 from flask import render_template_string, render_template, jsonify, request
-from config import *
+from .config import *
 from flask_user import login_required
-from models import db
-from models import *
+from .models import db
+from .models import *
 
 @app.route('/')
 # @login_required
@@ -25,4 +25,3 @@ def about():
 @app.route('/programs')
 def programs():
     return render_template('programs.html')
-    

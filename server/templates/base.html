@@ -2,43 +2,43 @@
 <head>
         <title>The Talloires Network</title>
         <link rel="stylesheet" type="text/css" href="/static/semantic.css">
-
         <link rel="stylesheet" type="text/css" href="/static/styles/tn.css">
         <script src="/static/semantic.min.js"></script>
 </head>
 
 <body>
+        <div class="ui fixed borderless menu"  id="navbar">
+                <!-- <div class="container"> -->
+                        {% if request.path != "/" %}
+                        <div class="left menu">
+                                <a href="" class="item">The Talloires Network</a>
+                        </div>
+                        {% endif %}
+                        <div class="right menu">
+                                <a href="{{url_for('index')}}" class="item">Home</a>
+                                <a href="{{url_for('about')}}" class="item">About</a>
+                                <a href="{{url_for('user.register')}}" class="item">Join us</a>
+                                <a href="{{url_for('programs')}}" class="item">Programs</a>
+                                <a href="{{url_for('user.login')}}" class="item">Members & Partners</a>
+                                <a href="http://talloiresnetwork.tufts.edu/blog/category/news/" class="item">Blog</a>
+                                <a href="#" class="item">Resources</a>
+                                <a href="#" class="item">Contact us</a>
+                                <div class="ui search item">
+                                        <div class="ui icon input">
+                                                <input class="prompt" type="text" placeholder="Search...">
+                                                <i class="search icon"></i>
+                                        </div>
+                                </div>
+                        </div>
+                <!-- </div> -->
+        </div>
 
-<div class="ui grid">
-    <div class="row">
-        <div class="ui small fixed borderless menu navbar page">
-        {% if request.path != "/" %}
-        <div class="left menu">
-            <a href="" class="item">The Talloires Network</a>
+        <div class="ui grid">
+                <div id="content" class="row">
+                        {% block content %}
+                        {% endblock %}
+                </div>
         </div>
-        {% endif %}
-        <div class="right menu">
-            <a href="{{url_for('index')}}" class="item">Home</a>
-            <a href="{{url_for('about')}}" class="item">About</a>
-            <a href="{{url_for('user.register')}}" class="item">Join us</a>
-            <a href="{{url_for('programs')}}" class="item">Programs</a>
-            <a href="{{url_for('user.login')}}" class="item">Members & Partners</a>
-            <a href="http://talloiresnetwork.tufts.edu/blog/category/news/" class="item">Blog</a>
-            <a href="#" class="item">Resources</a>
-            <a href="#" class="item">Contact us</a>
-            <div class="ui search item">
-              <div class="ui icon input">
-                <input class="prompt" type="text" placeholder="Search...">
-                <i class="search icon"></i>
-              </div>
-            </div>
-        </div>
-        </div>
-    </div>
 
-{% block content %}
-{% endblock %}
-</div>
 </body>
-
 </html>
