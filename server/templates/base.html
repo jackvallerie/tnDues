@@ -1,17 +1,17 @@
 <html>
 <head>
         <title>The Talloires Network</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <link rel="stylesheet" type="text/css" href="/static/semantic.css">
-        <link rel="stylesheet" type="text/css" href="/static/styles/tn.css">
         <script src="/static/semantic.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/static/styles/tn.css">
 </head>
 
 <body>
-        <div class="ui fixed borderless menu"  id="navbar">
-                <!-- <div class="container"> -->
+        <div class="ui borderless small menu"  id="navbar">
                         {% if request.path != "/" %}
                         <div class="left menu">
-                                <a href="" class="item">The Talloires Network</a>
+                                <a href="" class="item" id="tnicon"></a>
                         </div>
                         {% endif %}
                         <div class="right menu">
@@ -30,14 +30,11 @@
                                         </div>
                                 </div>
                         </div>
-                <!-- </div> -->
         </div>
 
-        <div class="ui grid">
-                <div id="content" class="row">
-                        {% block content %}
-                        {% endblock %}
-                </div>
+        <div class="ui centered grid">
+                {% block content %}
+                {% endblock %}
         </div>
 
 </body>
