@@ -4,6 +4,30 @@ from flask_user import login_required
 from .models import *
 
 ##################################################
+# PAYMENTS
+##################################################
+# @app.route('/charge1', methods=['POST'])
+# def charge():
+#   # Amount in cents
+#   amount = 500
+
+#   customer = stripe.Customer.create(
+#     email='customer@example.com',
+#     source=request.form['stripeToken']
+#   )
+
+#   charge = stripe.Charge.create(
+#     customer=customer.id,
+#     amount=amount,
+#     currency='usd',
+#     description='Flask Charge'
+#   )
+
+#   return ''
+
+
+
+##################################################
 # USERS
 ##################################################
 @app.route('/api/users', methods=['GET', 'PUT'])

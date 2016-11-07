@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>The Talloires Network</title>
-    <!-- BASE FOR INCLUDING JAVASCRIPT FILES -->
-    <script type="text/javascript" src="{{ url_for('static', filename='thing.js')}}"></script>
+
     <!-- Bootstrap -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -51,6 +50,7 @@
     {% endblock %}
     <hr class="no-margins"/>
 
+    <div id="main-div" class="with-margins">
     {# One-time system messages called Flash messages #}
     {% block flash_messages %}
         {%- with messages = get_flashed_messages(with_categories=true) -%}
@@ -64,18 +64,18 @@
             {% endif %}
         {%- endwith %}
     {% endblock %}
-    {% block main %}
-    <div class="container">
-    {% block content %}{% endblock %}
+
+    {% block main %}{% block content %}{% endblock %}{% endblock %}
     </div>
-    {% endblock %}
+
     <br/>
     <hr class="no-margins"/>
     <div id="footer-div" class="clearfix with-margins">
-        <div class="pull-left">&copy; Copyright 2016 Talloires Network</div>
-        <!-- <div class="pull-right">&copy; fdsa that dsaf</div> -->
+        <div class="pull-left">MyApp v1.0</div>
+        <div class="pull-right">&copy; 2014 MyCorp</div>
     </div>
     {% endblock %}
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>

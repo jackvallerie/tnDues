@@ -1,7 +1,8 @@
+import os
+import stripe
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
-import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -22,8 +23,7 @@ class ConfigClass(object):
   MAIL_PORT = int(os.getenv('MAIL_PORT', '465'))
   MAIL_USE_SSL = int(os.getenv('MAIL_USE_SSL', True))
 
-
-
+# initialize stripe
 stripe_keys = {
   'secret_key': os.environ['STRIPE_SECRET_KEY'],
   'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY']

@@ -1,84 +1,73 @@
-
-
 @font-face {
-    font-family: Mekanik;
-    src: url(MekanikPlain.ttf);
-}
-
-
-
-.right .menu .item{
-        font-size: 50px;
+  font-family: Mekanik;
+  src: url(MekanikPlain.ttf);
 }
 
 #tnicon {
         background-image: url("../talloires-top.png");
-        width: 300px;
-        left: 10px;
+        width: 120px;
+        background-size: cover;
+        top: 10px;
+}
+// #navbar {
+//         font-family: Mekanik;
+//         height: 75px;
+//         background-color: #FAFAFA;
+//         font-size: 20px;
+//         color: rgba(0, 0, 0, 0.7);
+// }
+// #navbar.menu a.item{
+//         padding: 15px;
+// }
+// .ui#container{
+//         padding-top: 500px;
+// }
+// #homepage_background {
+//         position: absolute;
+//         top: 20%;
+//         left:27.5%;
+//         opacity: 0.4;
+//         height: 400px;
+//         z-index: -1;
+// }
+// #homepage_img{
+//         /*background-image: url("./talloires_background.jpg") !important;*/
+//         background-repeat: no-repeat;
+//         background-size: contain;
+// }
+// .centered div.row{
+//         font-weight: bold;
+//         opacity: 1.0;
+// }
+.centered {
+    text-align: center;
 }
 
-#navbar {
-        font-family: Mekanik;
-        height: 75px;
-        background-color: #FAFAFA;
-        font-size: 20px;
-        color: rgba(0, 0, 0, 0.7);
+#registerButton {
+  font-family: Mekanik;
+  font-size: 2em;
+  height: auto;
 }
 
-#navbar.menu a.item{
-        padding: 15px;
+// .row.welcomesign h2{
+//         font-family: Mekanik;
+//         height: auto;
+//         padding-top: 50px;
+//         color: #4286f4;
+//         font-size: 10em;
+// }
+// .row.talloiresname{
+//         font-family: Mekanik;
+//         padding: 50px;
+//         height: auto;
+//         color:black;
+//         font-size: 5em;
+// }
+body {
+  // background: url("tn.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  font-family: Mekanik;
+  font-size: 20px;
 }
-
-.ui#container{
-        padding-top: 500px;
-}
-
-#homepage_background {
-        position: absolute;
-        top: 20%;
-        left:27.5%;
-        opacity: 0.4;
-        height: 400px;
-        z-index: -1;
-}
-
-#homepage_img{
-        /*background-image: url("./talloires_background.jpg") !important;*/
-        background-repeat: no-repeat;
-        background-size: contain;
-}
-
-.centered div.row{
-        font-weight: bold;
-        opacity: 1.0;
-}
-
-#registerButton{
-        font-family: Mekanik;
-        font-size: 2em;
-        height: auto;
-}
-
-.row.welcomesign h2{
-        font-family: Mekanik;
-        height: auto;
-        padding-top: 50px;
-        color: #4286f4;
-        font-size: 10em;
-}
-
-.row.talloiresname{
-        font-family: Mekanik;
-        padding: 50px;
-        height: auto;
-        color:black;
-        font-size: 5em;
-}
-
-/*body {
-        background: url("tn.jpg") no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        font-family: Mekanik;
-}*/

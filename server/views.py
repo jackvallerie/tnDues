@@ -48,17 +48,5 @@ def charge():
     '''
     return render_template('charge.html', amount=amount)
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
-
-
-
-
-
-
-
 
 

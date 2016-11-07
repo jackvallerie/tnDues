@@ -1,41 +1,93 @@
 <html>
+
 <head>
-        <title>The Talloires Network</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="/static/semantic.css">
-        <script src="/static/semantic.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="/static/styles/tn.css">
+  <title>The Talloires Network</title>
+  <!-- BASE FOR INCLUDING JAVASCRIPT FILES -->
+  <!-- <script type="text/javascript" src="{{ url_for('static', filename='thing.js')}}"></script> -->
+  <!-- Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+  <!-- In-lining styles to avoid needing a separate .css file -->
+  <style>
+  hr {
+    border-color: #cccccc;
+    margin: 0;
+  }
+  
+  .no-margins {
+    margin: 0px;
+  }
+  
+  .with-margins {
+    margin: 10px;
+  }
+  
+  .col-centered {
+    float: none;
+    margin: 0 auto;
+  }
+  </style>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/static/semantic.css">
+  <link rel="stylesheet" type="text/css" href="/static/styles/tn.css">
 </head>
 
 <body>
-        <div class="ui borderless small menu"  id="navbar">
-                        {% if request.path != "/" %}
-                        <div class="left menu">
-                                <a href="" class="item" id="tnicon"></a>
-                        </div>
-                        {% endif %}
-                        <div class="right menu">
-                                <a href="{{url_for('index')}}" class="item">Home</a>
-                                <a href="{{url_for('about')}}" class="item">About</a>
-                                <a href="{{url_for('user.register')}}" class="item">Join us</a>
-                                <a href="{{url_for('programs')}}" class="item">Programs</a>
-                                <a href="{{url_for('user.login')}}" class="item">Members & Partners</a>
-                                <a href="http://talloiresnetwork.tufts.edu/blog/category/news/" class="item">Blog</a>
-                                <a href="#" class="item">Resources</a>
-                                <a href="#" class="item">Contact us</a>
-                                <div class="ui search item">
-                                        <div class="ui icon input">
-                                                <input class="prompt" type="text" placeholder="Search...">
-                                                <i class="search icon"></i>
-                                        </div>
-                                </div>
-                        </div>
-        </div>
-
-        <div class="ui centered grid">
-                {% block content %}
-                {% endblock %}
-        </div>
-
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+      {% if request.path != "/" %}
+      <div>
+      </div>
+      {% endif %}
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/" class="item" id="tnicon"></a></li>
+          <li><a href="{{url_for('about')}}" class="item">About</a> </li>
+          <li><a href="{{url_for('user.register')}}" class="item">Join us</a> </li>
+          <li><a href="{{url_for('programs')}}" class="item">Programs</a> </li>
+          <li><a href="{{url_for('user.login')}}" class="item">Members & Partners</a> </li>
+          <li><a href="http://talloiresnetwork.tufts.edu/blog/category/news/" class="item">Blog</a> </li>
+          <!-- <li><a href="#" class="item">Resources</a> </li> -->
+          <!-- <li><a href="#" class="item">Contact us</a> </li> -->
+        </ul>
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search">
+          </div>
+          <button type="submit" class="btn btn-default">Search</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          {% if call_or_get(current_user.is_authenticated) %}
+          <li><a href="{{ url_for('user.profile') }}">{{ current_user.username }}</a></li>
+          <li><a href="{{ url_for('user.logout') }}">Sign out</a> </li>
+          {% else %}
+          <li><a href="{{ url_for('user.login') }}">Sign in</a> </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    {# One-time system messages called Flash messages #} {% block flash_messages %} {%- with messages = get_flashed_messages(with_categories=true) -%} {% if messages %} {% for category, message in messages %} {% if category=='error' %} {% set category='danger' %} {% endif %}
+    <div class="alert alert-{{category}}">{{ message|safe }}</div>
+    {% endfor %} {% endif %} {%- endwith %} {% endblock %} {% block main %} {% block content %} {% endblock %} {% endblock %}
+    <br/>
+    <hr class="no-margins" />
+    <div id="footer-div" class="clearfix with-margins">
+      <div class="pull-left">&copy; Copyright 2016 Talloires Network</div>
+      <!-- <div class="pull-right">&copy; fdsa that dsaf</div> -->
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>
