@@ -3,6 +3,7 @@ from .config import *
 from flask_user import login_required
 from .models import db
 from .models import *
+import stripe 
 
 @app.route('/')
 # @login_required
@@ -16,7 +17,7 @@ def index():
   #       <p><a href={{ url_for('user.profile') }}>Members page</a> (login required)</p>
   #   {% endblock %}
   #   """)
-    return render_template('index.html')
+    return render_template('index.html', key=stripe_keys['publishable_key'])
 
 @app.route('/about')
 def about():
@@ -25,3 +26,39 @@ def about():
 @app.route('/programs')
 def programs():
     return render_template('programs.html')
+
+@app.route('/charge', methods=['GET', 'POST'])
+def charge():
+    # Amount in cents
+    amount = 5000
+    '''
+    customer = stripe.Customer.create(
+        email=request.form['stripeEmail'],
+        #email='talloiresnetwork@tufts.edu',
+        source=request.form['stripeToken']
+    )
+    
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Flask Charge'
+    )
+    
+    '''
+    return render_template('charge.html', amount=amount)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
