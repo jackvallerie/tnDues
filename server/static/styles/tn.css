@@ -26,7 +26,7 @@
 }
 
 #homepage_img{
-        background-image: url("./talloires_background.jpg") !important;
+        /*background-image: url("./talloires_background.jpg") !important;*/
         background-repeat: no-repeat;
         background-size: cover;
         width: 100%;
@@ -39,11 +39,11 @@
         height: auto;
 }
 
-.row.welcomesign {
+.row.welcomesign h2{
         height: auto;
         padding-top: 50px;
         color: blue;
-        font-size: 5em;
+        font-size: 10em;
 }
 
 .row.talloiresname{
