@@ -5,6 +5,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import stripe
 
 class ConfigClass(object):
   SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI', 'sqlite:////tmp/test.db')
@@ -20,6 +21,14 @@ class ConfigClass(object):
   MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
   MAIL_PORT = int(os.getenv('MAIL_PORT', '465'))
   MAIL_USE_SSL = int(os.getenv('MAIL_USE_SSL', True))
+
+
+
+stripe_keys = {
+  'secret_key': os.environ['STRIPE_SECRET_KEY'],
+  'publishable_key': os.environ['STRIPE_PUBLISHABLE_KEY']
+}
+stripe.api_key = stripe_keys['secret_key']
 
 app = Flask(__name__)
 app.config.from_object(__name__+'.ConfigClass')
