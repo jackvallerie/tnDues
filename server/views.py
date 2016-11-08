@@ -50,3 +50,8 @@ def charge():
 
 
 
+
+@app.route('/user/sign-in')
+@login_required
+def thing():
+  return render_template('programs.html')

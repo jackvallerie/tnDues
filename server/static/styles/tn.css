@@ -1,10 +1,6 @@
-@font-face {
-  font-family: Mekanik;
-  src: url(MekanikPlain.ttf);
-}
 
 #tnicon {
-        background-image: url("../talloires-top.png");
+        background-image: url("./heading.png");
         width: 120px;
         background-size: cover;
         top: 10px;
@@ -64,10 +60,16 @@
 //         font-size: 5em;
 // }
 body {
-  // background: url("tn.jpg") no-repeat center center fixed;
+  background: url("talloires_landscape.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  font-family: Mekanik;
-  font-size: 20px;
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.container {
+    background-color: rgba(50,50,50,0.4);
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
