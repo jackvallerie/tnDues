@@ -1,50 +1,16 @@
-
 #tnicon {
-        background-image: url("./heading.png");
-        width: 120px;
-        background-size: cover;
-        top: 10px;
+  background-image: url("./heading.png");
+  width: 180px;
+  margin-right: 4px;
+  background-size: cover;
+  top: 6px;
 }
-// #navbar {
-//         font-family: Mekanik;
-//         height: 75px;
-//         background-color: #FAFAFA;
-//         font-size: 20px;
-//         color: rgba(0, 0, 0, 0.7);
-// }
-// #navbar.menu a.item{
-//         padding: 15px;
-// }
-// .ui#container{
-//         padding-top: 500px;
-// }
-// #homepage_background {
-//         position: absolute;
-//         top: 20%;
-//         left:27.5%;
-//         opacity: 0.4;
-//         height: 400px;
-//         z-index: -1;
-// }
-// #homepage_img{
-//         /*background-image: url("./talloires_background.jpg") !important;*/
-//         background-repeat: no-repeat;
-//         background-size: contain;
-// }
-// .centered div.row{
-//         font-weight: bold;
-//         opacity: 1.0;
-// }
+
 .centered {
-    text-align: center;
+  text-align: center;
 }
 
-#registerButton {
-  font-family: Mekanik;
-  font-size: 2em;
-  height: auto;
-}
-
+<<<<<<< HEAD
 // .row.welcomesign h2{
 //         font-family: Mekanik;
 //         height: auto;
@@ -60,8 +26,11 @@
 //         font-size: 5em;
 // }
 
+=======
+>>>>>>> 04156f60ad399cc28f70c2420d215e77ac63b4d2
 body {
   background: url("talloires_landscape.jpg") no-repeat center center fixed;
+  background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -69,8 +38,30 @@ body {
   color: transparent;
 }
 
-.container {
-    background-color: rgba(50,50,50,0.4);
-    padding-top: 15px;
-    padding-bottom: 15px;
+a {
+  color: white;
+}
+
+.gray-box {
+  background-color: rgba(40, 40, 40, 0.7);
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+hr {
+  border-color: #cccccc;
+  margin: 0;
+}
+
+.no-margins {
+  margin: 0px;
+}
+
+.with-margins {
+  margin: 10px;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
 }
