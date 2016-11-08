@@ -10,6 +10,24 @@
   text-align: center;
 }
 
+<<<<<<< HEAD
+// .row.welcomesign h2{
+//         font-family: Mekanik;
+//         height: auto;
+//         padding-top: 50px;
+//         color: #4286f4;
+//         font-size: 10em;
+// }
+// .row.talloiresname{
+//         font-family: Mekanik;
+//         padding: 50px;
+//         height: auto;
+//         color:black;
+//         font-size: 5em;
+// }
+
+=======
+>>>>>>> 04156f60ad399cc28f70c2420d215e77ac63b4d2
 body {
   background: url("talloires_landscape.jpg") no-repeat center center fixed;
   background-size: cover;
@@ -17,7 +35,7 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-  color: white;
+  color: transparent;
 }
 
 a {
