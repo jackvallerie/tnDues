@@ -5,29 +5,11 @@
   <!-- BASE FOR INCLUDING JAVASCRIPT FILES -->
   <!-- <script type="text/javascript" src="{{ url_for('static', filename='thing.js')}}"></script> -->
   <!-- Bootstrap -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" />
+  <link href="/static/styles/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/static/styles/bootstrap/js/bootstrap.min.js"/>
   <!-- In-lining styles to avoid needing a separate .css file -->
-  <style>
-  hr {
-    border-color: #cccccc;
-    margin: 0;
-  }
-  
-  .no-margins {
-    margin: 0px;
-  }
-  
-  .with-margins {
-    margin: 10px;
-  }
-  
-  .col-centered {
-    float: none;
-    margin: 0 auto;
-  }
-  </style>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -35,12 +17,11 @@
       <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
     <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/static/semantic.css">
   <link rel="stylesheet" type="text/css" href="/static/styles/tn.css">
 </head>
 
 <body>
-  <nav class="navbar navbar-default navbar-static-top">
+  <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container-fluid">
       {% if request.path != "/" %}
       <div>
@@ -48,7 +29,9 @@
       {% endif %}
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li><a href="/" class="item" id="tnicon"></a></li>
+          <li>
+            <a href="/" class="item" id="tnicon"></a>
+          </li>
           <li><a href="{{url_for('about')}}" class="item">About</a> </li>
           <li><a href="{{url_for('user.register')}}" class="item">Join us</a> </li>
           <li><a href="{{url_for('programs')}}" class="item">Programs</a> </li>
@@ -74,20 +57,21 @@
       </div>
     </div>
   </nav>
-  <div class="container">
+  <div class="gray-box container">
     {# One-time system messages called Flash messages #} {% block flash_messages %} {%- with messages = get_flashed_messages(with_categories=true) -%} {% if messages %} {% for category, message in messages %} {% if category=='error' %} {% set category='danger' %} {% endif %}
     <div class="alert alert-{{category}}">{{ message|safe }}</div>
     {% endfor %} {% endif %} {%- endwith %} {% endblock %} {% block main %} {% block content %} {% endblock %} {% endblock %}
     <br/>
     <hr class="no-margins" />
-    <div id="footer-div" class="clearfix with-margins">
+    <div id="footer-div" class="clearfix with-margins container-fluid">
       <div class="pull-left">&copy; Copyright 2016 Talloires Network</div>
       <!-- <div class="pull-right">&copy; fdsa that dsaf</div> -->
     </div>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
 
 </html>

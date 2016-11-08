@@ -50,7 +50,6 @@
     {% endblock %}
     <hr class="no-margins"/>
 
-    <div id="main-div" class="with-margins">
     {# One-time system messages called Flash messages #}
     {% block flash_messages %}
         {%- with messages = get_flashed_messages(with_categories=true) -%}
@@ -66,7 +65,6 @@
     {% endblock %}
 
     {% block main %}{% block content %}{% endblock %}{% endblock %}
-    </div>
 
     <br/>
     <hr class="no-margins"/>
