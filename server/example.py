@@ -66,6 +66,14 @@ def create_app(test_config=None):                   # For automated tests
         roles = db.relationship('Role', secondary='user_roles',
                 backref=db.backref('users', lazy='dynamic'))
 
+        # Create 'user007' user with 'secret' and 'agent' roles
+        if not User.query.filter(User.username=='user007').first():
+            user1 = User(username='user007', email='user007@example.com', active=True,
+                    password=user_manager.hash_password('Password1'))
+            user1.roles.append(Role(name='secret'))
+            user1.roles.append(Role(name='agent'))
+            db.session.add(user1)
+            db.session.commit()
     # Define the Role data model
     class Role(db.Model):
         id = db.Column(db.Integer(), primary_key=True)
@@ -84,14 +92,7 @@ def create_app(test_config=None):                   # For automated tests
     db_adapter = SQLAlchemyAdapter(db,  User)
     user_manager = UserManager(db_adapter, app)
 
-    # Create 'user007' user with 'secret' and 'agent' roles
-    if not User.query.filter(User.username=='user007').first():
-        user1 = User(username='user007', email='user007@example.com', active=True,
-                password=user_manager.hash_password('Password1'))
-        user1.roles.append(Role(name='secret'))
-        user1.roles.append(Role(name='agent'))
-        db.session.add(user1)
-        db.session.commit()
+    
 
     # The Home page is accessible to anyone
     @app.route('/')
