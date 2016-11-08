@@ -31,7 +31,7 @@ def programs():
 @app.route('/stripe', methods = ['GET'])
 def stripe():
     return render_template('stripe.html', key=stripe_keys['publishable_key'])
-  
+
 
 @app.route('/charge', methods=['POST'])
 def charge():
@@ -49,5 +49,3 @@ def charge():
         description = 'Flask Charge'
     )
     return render_template('charge.html', amount=amount)
-
-

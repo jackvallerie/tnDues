@@ -22,6 +22,9 @@ class ConfigClass(object):
   MAIL_PORT = int(os.getenv('MAIL_PORT', '465'))
   MAIL_USE_SSL = int(os.getenv('MAIL_USE_SSL', True))
 
+  USER_LOGIN_URL                = '/user/login'
+          
+
 # initialize stripe
 stripe_keys = {
   'secret_key': os.environ['STRIPE_SECRET_KEY'],
