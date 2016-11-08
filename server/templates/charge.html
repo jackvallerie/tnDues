@@ -1,5 +1,5 @@
-{% extends "layout.html" %}
-{% block stripecontent %}
+{% extends 'base.html' %}
+{% block content %}
 	<h2>Thanks, you paid <strong>$
     {{ '%(amt).2f'|format(amt=amount/100) }}</strong>!</h2>
 {% endblock %}

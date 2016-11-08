@@ -3,7 +3,7 @@ from .config import *
 from flask_user import login_required
 from .models import db
 from .models import *
-
+import flask_login
 import stripe
 
 @app.route('/')
@@ -18,7 +18,7 @@ def index():
   #       <p><a href={{ url_for('user.profile') }}>Members page</a> (login required)</p>
   #   {% endblock %}
   #   """)
-    return render_template('index.html', key=stripe_keys['publishable_key'])
+    return render_template('index.html')
 
 @app.route('/about')
 def about():
@@ -28,31 +28,33 @@ def about():
 def programs():
     return render_template('programs.html')
 
-@app.route('/charge', methods=['GET', 'POST'])
+@app.route('/stripe', methods = ['GET'])
+def stripe():
+    return render_template('stripe.html', key=stripe_keys['publishable_key'])
+  
+
+@app.route('/charge', methods=['POST'])
 def charge():
     # Amount in cents
-    amount = 5000
-    '''
+    amount = 50000
     customer = stripe.Customer.create(
-        email=request.form['stripeEmail'],
-        #email='talloiresnetwork@tufts.edu',
-        source=request.form['stripeToken']
+        email ='customer@example.com',
+        source = request.form['stripeToken']
     )
 
     charge = stripe.Charge.create(
-        customer=customer.id,
-        amount=amount,
-        currency='usd',
-        description='Flask Charge'
+        customer = customer.id,
+        amount = amount,
+        currency = 'usd',
+        description = 'Flask Charge'
     )
-
-    '''
     return render_template('charge.html', amount=amount)
 
 
 
+
 ########### FLASK LOGIN FACILITY ##############
-import flask_login
+
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
