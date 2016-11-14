@@ -81,7 +81,7 @@ class MyRegisterForm(RegisterForm):
 class Transaction(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
   amt = db.Column(db.Float())
-  user_id = db.Column(db.Integer(), db.ForeignKey('user.id'))
+  user_id = db.Column(db.Integer(), db.ForeignKey('User.id'))
   def serialize(self):
     return {
       "id": self.id,

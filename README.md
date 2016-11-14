@@ -23,3 +23,8 @@ Connect to database:
 ```
 sqlite3 /tmp/test.db
 ```
+
+pip install urllib3
+pip install pyopenssl
+pip install ndg-httpsclient
+pip install pyasn1

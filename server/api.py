@@ -109,7 +109,7 @@ def get_transactions():
 def post_transaction():
   newtrans = Transaction()
   newtrans.amt = request.form['amt']
-  newtrans.user_id = request.form['user_id']
+  # newtrans.user_id = request.form['user_id']
   db.session.add(newtrans)
   db.session.commit()
   return jsonify(newtrans.serialize())
