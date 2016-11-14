@@ -28,9 +28,9 @@ def about():
 def programs():
     return render_template('programs.html')
 
-@app.route('/stripe', methods = ['GET'])
+@app.route('/payment', methods = ['GET'])
 def stripe():
-    return render_template('stripe.html', key=stripe_keys['publishable_key'])
+    return render_template('payment.html', key=stripe_keys['publishable_key'])
 
 
 @app.route('/charge', methods=['POST'])
