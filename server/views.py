@@ -4,7 +4,7 @@ from flask_user import login_required
 from .models import db
 from .models import *
 import flask_login
-import stripe
+import stripe as st
 
 @app.route('/')
 # @login_required
@@ -37,15 +37,18 @@ def stripe():
 def charge():
     # Amount in cents
     amount = 50000
-    customer = stripe.Customer.create(
+    st.api_key = 'sk_test_wsMjL4k5mivDxSCu07eRO5z2'
+
+    customer = st.Customer.create(
         email ='customer@example.com',
         source = request.form['stripeToken']
     )
 
-    charge = stripe.Charge.create(
+    charge = st.Charge.create(
         customer = customer.id,
         amount = amount,
         currency = 'usd',
         description = 'Flask Charge'
     )
+    
     return render_template('charge.html', amount=amount)
