@@ -1,3 +1,4 @@
+from .secret import *
 import os
 import stripe
 from flask import Flask
