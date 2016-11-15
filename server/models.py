@@ -1,7 +1,8 @@
 from .config import *
 from flask_user import UserMixin, SQLAlchemyAdapter, UserManager
 from flask_user.forms import RegisterForm
-from wtforms import StringField, SubmitField, validators
+from flask_wtf import Form
+from wtforms import *
 
 
 class User(db.Model, UserMixin):
@@ -73,10 +74,9 @@ class UsersRoles(db.Model):
     role_id = db.Column(db.Integer(), db.ForeignKey('roles.id', ondelete='CASCADE'))
 
 class MyRegisterForm(RegisterForm):
-  first_name = StringField('First name')
-  last_name  = StringField('Last name')
-  institution  = StringField('Institution')
-
+  first_name  = StringField('First name')
+  last_name   = StringField('Last name')
+  institution = StringField('Institution')
 
 class Transaction(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
@@ -91,7 +91,7 @@ class Transaction(db.Model):
 
 class Country(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
-  name = db.Column(db.String(40))
+  name = db.Column(db.String(40), unique=True)
   price = db.Column(db.Float())
   def serialize(self):
     return {
@@ -100,6 +100,10 @@ class Country(db.Model):
       "price": self.price
     }
 
+class CountryForm(Form):
+  name  = StringField('Country Name')
+  price = DecimalField('Cost')
+  submit = SubmitField()
 
 class Institution(db.Model):
   id = db.Column(db.Integer(), primary_key=True)

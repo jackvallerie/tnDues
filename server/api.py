@@ -139,7 +139,6 @@ def post_country():
   newcountry.price = request.form['price']
   db.session.add(newcountry)
   db.session.commit()
-  return jsonify(newcountry.serialize())
 
 def update_country():
   country = Country.query.get(request.form['id'])
