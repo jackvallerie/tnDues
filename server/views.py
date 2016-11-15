@@ -6,6 +6,7 @@ import flask_login
 import stripe as st
 from wtforms.ext.sqlalchemy.orm import model_form
 
+
 @app.route('/')
 # @login_required
 def index():
@@ -30,27 +31,42 @@ def programs():
     myform = CountryForm(request.form)
     return render_template('programs.html', form=myform)
 
+'''
+def get_price_middleware():
+  # query user DB for country
+  # query country DB for price
+  # return price
+'''
+
+chargeAmount = 700
+
 @app.route('/payment', methods=['GET'])
 def stripe():
-    return render_template('payment.html', key=stripe_keys['publishable_key'])
+    return render_template('payment.html', key=stripe_keys['publishable_key'], 
+                            amount = chargeAmount)
 
 
 @app.route('/charge', methods=['POST'])
 def charge():
+
     # Amount in cents
-    amount = 50000
-    st.api_key = 'sk_test_wsMjL4k5mivDxSCu07eRO5z2'
+    st.api_key = stripe_keys['secret_key']
 
     customer = st.Customer.create(
         email ='customer@example.com',
         source = request.form['stripeToken']
     )
+    try:
+        charge = st.Charge.create(
+            customer = customer.id,
+            amount = chargeAmount,
+            currency = 'usd',
+            description = 'Flask Charge'
+            #destination = 
+        )
+        return render_template('charge.html', amount=chargeAmount)
+    except stripe.error.CardError as e:
+        # Card declined
+        print "Ooops, card declined!"
 
-    charge = st.Charge.create(
-        customer = customer.id,
-        amount = amount,
-        currency = 'usd',
-        description = 'Flask Charge'
-    )
-    
-    return render_template('charge.html', amount=amount)
+
