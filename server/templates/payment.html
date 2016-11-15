@@ -6,13 +6,13 @@
   <form action="/charge" method="post">
     <article>
       <label>
-        <span>Want to register for the upcoming Taillores Conference? It's only $500.00!</span>
+        <span>Want to register for the upcoming Taillores Conference? It's only {{ amount }} cents !</span>
       </label>
     </article>
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{{ key }}"
             data-description="A Flask Charge"
-            data-amount="500"
+            data-amount="{{ amount }}"
             data-locale="auto"></script>
   </form>
   <br/>
