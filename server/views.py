@@ -42,7 +42,7 @@ chargeAmount = 700
 
 @app.route('/payment', methods=['GET'])
 def stripe():
-    return render_template('payment.html', key=stripe_keys['publishable_key'], 
+    return render_template('payment.html', key=stripe_keys['publishable_key'],
                             amount = chargeAmount)
 
 
@@ -66,6 +66,4 @@ def charge():
         return render_template('charge.html', amount=chargeAmount)
     except st.error.CardError as e:
         # Card declined
-        print "Ooops, card declined!"
-
-
+        print ("Ooops, card declined!")
