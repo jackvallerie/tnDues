@@ -72,9 +72,9 @@ class UserRoles(db.Model):
     role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
 
 class MyRegisterForm(RegisterForm):
-  first_name  = StringField('First name')
-  last_name   = StringField('Last name')
-  institution = StringField('Institution')
+    first_name  = StringField('First name')
+    last_name   = StringField('Last name')
+    institution = StringField('Institution')
 
 class Transaction(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
@@ -115,21 +115,8 @@ class Institution(db.Model):
 db.create_all() # create all the models
 
 # Setup Flask-User
-db_adapter = SQLAlchemyAdapter(db,  User)  
-user_manager = UserManager(db_adapter, app)
+db_adapter = SQLAlchemyAdapter(db, UserClass=User) # Register the User model
+user_manager = UserManager(db_adapter, app, register_form=MyRegisterForm)
 
-# Create 'user007' user with 'secret' and 'agent' roles
-# if not User.query.filter(User.username=='user007').first():
-# user1 = User(username='user007', email='alex.johnson969@gmail.com', password=user_manager.hash_password('Password1'),
-#             reset_password_token = '', confirmed_at = db.Column(db.DateTime()), institution = "Tufts", 
-#             first_name = "admin", last_name = "ADMIN", is_enabled = True)
-  
-#role1 = Role(name='secret')
-#user1.roles.append(role1)
-# user1.roles.append(Role(name='agent'))
-
-#db.session.add(user1)
 db.session.commit()
 
-# db_adapter = SQLAlchemyAdapter(db, UserClass=User)        # Register the User model
-# user_manager = UserManager(db_adapter, app, register_form=MyRegisterForm)
