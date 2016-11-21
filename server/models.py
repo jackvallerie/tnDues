@@ -1,7 +1,8 @@
 from .config import *
 from flask_user import UserMixin, SQLAlchemyAdapter, UserManager
 from flask_user.forms import RegisterForm
-from wtforms import StringField, SubmitField, validators
+from flask_wtf import Form
+from wtforms import *
 
 
 class User(db.Model, UserMixin):
@@ -29,7 +30,7 @@ class User(db.Model, UserMixin):
   is_enabled = db.Column(db.Boolean(), nullable=False, default=False)
 
   # Relationships
-  roles = db.relationship('Role', secondary='users_roles',
+  roles = db.relationship('Role', secondary='user_roles',
           backref=db.backref('users', lazy='dynamic'))
 
   def is_active(self):
@@ -56,27 +57,24 @@ class User(db.Model, UserMixin):
   # a list of transaction FOREIGN keys, pointing to the table below
   # transactions = db.relationship('Transaction', backref='user', lazy='dynamic')
 
-
 # Define the Role data model
 class Role(db.Model):
-    __tablename__ = 'roles'
+    __tablename__ = 'role'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50), nullable=False, server_default=u'', unique=True)  # for @roles_accepted()
-    label = db.Column(db.Unicode(255), server_default=u'')  # for display purposes
-
+    # label = db.Column(db.Unicode(255), server_default=u'')  # for display purposes
 
 # Define the UserRoles association model
-class UsersRoles(db.Model):
-    __tablename__ = 'users_roles'
+class UserRoles(db.Model):
+    __tablename__ = 'user_roles'
     id = db.Column(db.Integer(), primary_key=True)
     user_id = db.Column(db.Integer(), db.ForeignKey('User.id', ondelete='CASCADE'))
-    role_id = db.Column(db.Integer(), db.ForeignKey('roles.id', ondelete='CASCADE'))
+    role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
 
 class MyRegisterForm(RegisterForm):
-  first_name = StringField('First name')
-  last_name  = StringField('Last name')
-  institution  = StringField('Institution')
-
+  first_name  = StringField('First name')
+  last_name   = StringField('Last name')
+  institution = StringField('Institution')
 
 class Transaction(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
@@ -91,7 +89,7 @@ class Transaction(db.Model):
 
 class Country(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
-  name = db.Column(db.String(40))
+  name = db.Column(db.String(40), unique=True)
   price = db.Column(db.Float())
   def serialize(self):
     return {
@@ -100,6 +98,10 @@ class Country(db.Model):
       "price": self.price
     }
 
+class CountryForm(Form):
+  name  = StringField('Country Name')
+  price = DecimalField('Cost')
+  submit = SubmitField()
 
 class Institution(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
@@ -113,19 +115,21 @@ class Institution(db.Model):
 db.create_all() # create all the models
 
 # Setup Flask-User
-# db_adapter = SQLAlchemyAdapter(db,  User)  
-# user_manager = UserManager(db_adapter, app)
+db_adapter = SQLAlchemyAdapter(db,  User)  
+user_manager = UserManager(db_adapter, app)
 
 # Create 'user007' user with 'secret' and 'agent' roles
 # if not User.query.filter(User.username=='user007').first():
-#  user1 = User(username='user007', email='user007@example.com', password=user_manager.hash_password('Password1'),
-#  reset_password_token = '', confirmed_at = db.Column(db.DateTime()), institution = "Tufts", 
-#  first_name = "admin", last_name = "ADMIN", is_enabled = True)
+# user1 = User(username='user007', email='alex.johnson969@gmail.com', password=user_manager.hash_password('Password1'),
+#             reset_password_token = '', confirmed_at = db.Column(db.DateTime()), institution = "Tufts", 
+#             first_name = "admin", last_name = "ADMIN", is_enabled = True)
   
-#  user1.roles.append(Role(name='secret'))
-#  user1.roles.append(Role(name='agent'))
-#  db.session.add(user1)
-#  db.session.commit()
+#role1 = Role(name='secret')
+#user1.roles.append(role1)
+# user1.roles.append(Role(name='agent'))
 
-db_adapter = SQLAlchemyAdapter(db, UserClass=User)        # Register the User model
-user_manager = UserManager(db_adapter, app, register_form=MyRegisterForm)
+#db.session.add(user1)
+db.session.commit()
+
+# db_adapter = SQLAlchemyAdapter(db, UserClass=User)        # Register the User model
+# user_manager = UserManager(db_adapter, app, register_form=MyRegisterForm)

@@ -1,10 +1,10 @@
 from flask import render_template_string, render_template, jsonify, request
 from .config import *
 from flask_user import login_required
-from .models import db
 from .models import *
 import flask_login
 import stripe as st
+from wtforms.ext.sqlalchemy.orm import model_form
 
 
 @app.route('/')
@@ -27,7 +27,10 @@ def about():
 
 @app.route('/programs')
 def programs():
-    return render_template('programs.html')
+    # this is important
+    myform = CountryForm(request.form)
+    return render_template('programs.html', form=myform)
+
 '''
 def get_price_middleware():
   # query user DB for country
@@ -37,7 +40,7 @@ def get_price_middleware():
 
 chargeAmount = 700
 
-@app.route('/payment', methods = ['GET'])
+@app.route('/payment', methods=['GET'])
 def stripe():
     return render_template('payment.html', key=stripe_keys['publishable_key'], 
                             amount = chargeAmount)
