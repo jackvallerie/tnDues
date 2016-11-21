@@ -61,11 +61,10 @@ def charge():
             customer = customer.id,
             amount = chargeAmount,
             currency = 'usd',
-            description = 'Flask Charge'
-            #destination = 
+            description = 'Taillores Conference Charge'
         )
         return render_template('charge.html', amount=chargeAmount)
-    except stripe.error.CardError as e:
+    except st.error.CardError as e:
         # Card declined
         print "Ooops, card declined!"
 
