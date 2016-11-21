@@ -41,6 +41,7 @@ def get_price_middleware():
 chargeAmount = 700
 
 @app.route('/payment', methods=['GET'])
+@login_required
 def stripe():
     return render_template('payment.html', key=stripe_keys['publishable_key'],
                             amount = chargeAmount)
