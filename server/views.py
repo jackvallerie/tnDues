@@ -8,7 +8,6 @@ from wtforms.ext.sqlalchemy.orm import model_form
 
 
 @app.route('/')
-# @login_required
 def index():
   # return render_template_string("""
   #   {% extends "base.html" %}

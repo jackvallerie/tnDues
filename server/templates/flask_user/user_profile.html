@@ -4,22 +4,23 @@
 {% from "flask_user/_macros.html" import render_field, render_checkbox_field, render_submit_field %}
 
 <div class="container-fluid">
-        <h1> Welcome back</h1>
+        <h1> Welcome back, {{ current_user.first_name }} </h1>
         <table class="table">
           <thead>
             <tr>
               <th>Firstname</th>
               <th>Lastname</th>
               <th>Email</th>
+              <th>Phone</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>John</td>
-              <td>Doe</td>
-              <td>john@example.com</td>
+              <td>{{ current_user.first_name }}</td>
+              <td>{{ current_user.last_name}}</td>
+              <td>{{ current_user.email }}</td>
+              <td>{{ current_user.phone }}</td>
             </tr>
-
           </tbody>
         </table>
 </div>
