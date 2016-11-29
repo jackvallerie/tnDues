@@ -48,7 +48,6 @@ def stripe():
 
 @app.route('/charge', methods=['POST'])
 def charge():
-
     # Amount in cents
     st.api_key = stripe_keys['secret_key']
 
