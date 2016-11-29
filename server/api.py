@@ -1,31 +1,7 @@
-from flask import jsonify, request
+from flask import jsonify, request, render_template_string, render_template
 from .config import *
 from flask_user import login_required, roles_required
 from .models import *
-
-##################################################
-# PAYMENTS
-##################################################
-# @app.route('/charge1', methods=['POST'])
-# def charge():
-#   # Amount in cents
-#   amount = 500
-
-#   customer = stripe.Customer.create(
-#     email='customer@example.com',
-#     source=request.form['stripeToken']
-#   )
-
-#   charge = stripe.Charge.create(
-#     customer=customer.id,
-#     amount=amount,
-#     currency='usd',
-#     description='Flask Charge'
-#   )
-
-#   return ''
-
-
 
 ##################################################
 # USERS
@@ -119,15 +95,7 @@ def post_transaction():
 ##################################################
 # COUNTRIES
 ##################################################
-@app.route('/api/countries', methods=['GET', 'POST', 'PUT'])
-def countries():
-  if request.method == 'GET':
-    return get_countries()
-  elif request.method == 'POST':
-    return post_country()
-  elif request.method == 'PUT':
-    return update_country()
-
+@app.route('/api/countries', methods=['GET'])
 def get_countries():
   countries = Country.query.all()
   countrylist = []
@@ -135,20 +103,3 @@ def get_countries():
     countrylist.append(country.serialize())
   return jsonify(countrylist)
 
-def post_country():
-  newcountry = Country()
-  newcountry.name = request.form['name']
-  newcountry.price = request.form['price']
-  db.session.add(newcountry)
-  db.session.commit()
-  return jsonify(newcountry.serialize())
-
-def update_country():
-  country = Country.query.get(request.form['id'])
-  newname = request.form['name']
-  newprice = request.form['price']
-  if newname:
-    country.name = newname
-  if newprice:
-    country.price = newprice
-  return jsonify(country.serialize())

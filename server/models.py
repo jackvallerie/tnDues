@@ -72,11 +72,6 @@ class UserRoles(db.Model):
     user_id = db.Column(db.Integer(), db.ForeignKey('User.id', ondelete='CASCADE'))
     role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
 
-class MyRegisterForm(RegisterForm):
-    first_name  = StringField('First name')
-    last_name   = StringField('Last name')
-    institution = StringField('Institution')
-
 class Transaction(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
   amt = db.Column(db.Float())
@@ -99,11 +94,6 @@ class Country(db.Model):
       "price": self.price
     }
 
-class CountryForm(Form):
-  name  = StringField('Country Name')
-  price = DecimalField('Cost')
-  submit = SubmitField()
-
 class Institution(db.Model):
   id = db.Column(db.Integer(), primary_key=True)
   name = db.Column(db.String(80), nullable=False)
@@ -112,6 +102,22 @@ class Institution(db.Model):
       "id": self.id,
       "name": self.name
     }
+
+class CountryForm(Form):
+  name  = StringField('Country Name')
+  price = DecimalField('Cost')
+  submit = SubmitField()
+
+class InstitutionForm(Form):
+  name = StringField('Full Institution Name')
+  submit = SubmitField()
+
+class MyRegisterForm(RegisterForm):
+    first_name  = StringField('First name')
+    last_name   = StringField('Last name')
+    insts = map(lambda obj: (obj.name, obj.name), Institution.query.all())
+    institution = SelectField('Institution', choices=insts)
+
 
 db.create_all() # create all the models
 

@@ -2,13 +2,7 @@
 
 {% block content %}
 {% from "flask_user/_macros.html" import render_field, render_checkbox_field, render_submit_field %}
-<!-- TRYING TO SET A COUNTRY (MOVE THIS SOMEWHERE ELSE) -->
-<form action="/api/countries" method="POST" class="form">
-  {{ render_field(form.name, tabindex=100) }}
-  {{ render_field(form.price, tabindex=200) }}
-  <!-- <input name="name"> -->
-  {{ render_submit_field(form.submit, tabindex=220) }}
-</form>
 
-p-p-p-p-programs
+Programs go here
+
 {% endblock %}
