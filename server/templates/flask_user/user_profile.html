@@ -27,6 +27,15 @@
 </div>
 
 <div class="container-fluid">
+        <table class="table" id="user_list">
+
+        </table>
+</div>
+
+
+<div class="container-fluid">
+<p><a class="btn btn-large btn-info" id="get_all">{%trans%}Get all users info{%endtrans%}</a></p>
+
 
 {% if user_manager.enable_change_username %}
 <p><a class="btn btn-large btn-info" href="{{ url_for('user.change_username') }}">{%trans%}Change institution name{%endtrans%}</a></p>
@@ -34,6 +43,8 @@
 {% if user_manager.enable_change_password %}
 <p><a class="btn btn-large btn-info" href="{{ url_for('user.change_password') }}">{%trans%}Change password{%endtrans%}</a></p>
 {% endif %}
+
+<script type="text/javascript" src="/static/user/app.js"></script>
 
 </div>
 
