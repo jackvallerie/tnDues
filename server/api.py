@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from .config import *
-from flask_user import login_required
+from flask_user import login_required, roles_required
 from .models import *
 
 ##################################################
@@ -30,7 +30,9 @@ from .models import *
 ##################################################
 # USERS
 ##################################################
+
 @app.route('/api/users', methods=['GET', 'PUT'])
+@roles_required('admin')
 def users():
   if request.method == 'GET':
     return get_users()

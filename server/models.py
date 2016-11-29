@@ -5,6 +5,7 @@ from flask_wtf import Form
 from wtforms import *
 
 
+
 class User(db.Model, UserMixin):
   __tablename__='User'
   id = db.Column(db.Integer, primary_key=True)
@@ -118,5 +119,17 @@ db.create_all() # create all the models
 db_adapter = SQLAlchemyAdapter(db, UserClass=User) # Register the User model
 user_manager = UserManager(db_adapter, app, register_form=MyRegisterForm)
 
-db.session.commit()
+# Add a User Admin
+# to add a new admin to your database:
+# create a user with the user name user007, that user will become an admin
 
+if not Role.query.filter(Role.name=='admin').first():
+  role1 = Role(name='admin')
+  db.session.add(role1)
+  db.session.commit()
+
+if not UserRoles.query.filter(UserRoles.role_id==1).first():
+  user1 =  User.query.filter(User.username=='user007').first() 
+  user1.roles.append(Role.query.filter(Role.name=='admin').first())
+  db.session.add(user1)
+  db.session.commit()
