@@ -134,8 +134,8 @@ if not Role.query.filter(Role.name=='admin').first():
   db.session.add(role1)
   db.session.commit()
 
-if not UserRoles.query.filter(UserRoles.role_id==1).first():
-  user1 =  User.query.filter(User.username=='user007').first() 
-  user1.roles.append(Role.query.filter(Role.name=='admin').first())
-  db.session.add(user1)
-  db.session.commit()
+# if not UserRoles.query.filter(UserRoles.role_id==1).first():
+#   user1 =  User.query.filter(User.username=='user007').first() 
+#   user1.roles.append(Role.query.filter(Role.name=='admin').first())
+#   db.session.add(user1)
+#   db.session.commit()
