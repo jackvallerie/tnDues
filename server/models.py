@@ -116,7 +116,8 @@ class MyRegisterForm(RegisterForm):
     first_name  = StringField('First name')
     last_name   = StringField('Last name')
     insts = map(lambda obj: (obj.name, obj.name), Institution.query.all())
-    institution = SelectField('Institution', choices=insts)
+    #institution = SelectField('Institution', choices=insts)
+    institution = StringField('Institution')
 
 
 db.create_all() # create all the models
