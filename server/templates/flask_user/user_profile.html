@@ -4,48 +4,187 @@
 {% from "flask_user/_macros.html" import render_field, render_checkbox_field, render_submit_field %}
 
 <div class="container-fluid">
-        <h1> Welcome back, {{ current_user.first_name }} </h1>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Firstname</th>
-              <th>Lastname</th>
-              <th>Email</th>
-              <th>Institution</th>
-              <!--<th>Phone</th>-->
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{ current_user.first_name }}</td>
-              <td>{{ current_user.last_name}}</td>
-              <td>{{ current_user.email }}</td>
-              <td>{{ current_user.institution }}</td>
-            </tr>
-          </tbody>
-        </table>
+	<h1> Welcome back, {{ current_user.first_name }} </h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Firstname</th>
+				<th>Lastname</th>
+				<th>Email</th>
+				<th>Institution</th>
+				<!--<th>Phone</th>-->
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{ current_user.first_name }}</td>
+				<td>{{ current_user.last_name}}</td>
+				<td>{{ current_user.email }}</td>
+				<td>{{ current_user.institution }}</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 
 <div class="container-fluid">
-        <table class="table" id="user_list">
+	<table class="table" id="user_list">
 
-        </table>
+	</table>
+</div>
+
+<div class="container-fluid" id="credit-card-form">
+<div class="panel panel-default credit-card-box">
+                <div class="panel-heading display-table" >
+                    <div class="row display-tr" >
+                        <h3 class="panel-title display-td" >Payment Details</h3>
+                        <div class="display-td" >                            
+                            <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                        </div>
+                    </div>                    
+                </div>
+                <div class="panel-body">
+                    <form role="form" id="payment-form" method="POST" action="javascript:void(0);">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="cardNumber">CARD NUMBER</label>
+                                    <div class="input-group">
+                                        <input 
+                                            type="tel"
+                                            class="form-control"
+                                            name="cardNumber"
+                                            placeholder="Valid Card Number"
+                                            autocomplete="cc-number"
+                                            required autofocus 
+                                        />
+                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                    </div>
+                                </div>                            
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-7 col-md-7">
+                                <div class="form-group">
+                                    <label for="cardExpiry"><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
+                                    <input 
+                                        type="tel" 
+                                        class="form-control" 
+                                        name="cardExpiry"
+                                        placeholder="MM / YY"
+                                        autocomplete="cc-exp"
+                                        required 
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-md-5 pull-right">
+                                <div class="form-group">
+                                    <label for="cardCVC">CV CODE</label>
+                                    <input 
+                                        type="tel" 
+                                        class="form-control"
+                                        name="cardCVC"
+                                        placeholder="CVC"
+                                        autocomplete="cc-csc"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="subscribe btn btn-success btn-lg btn-block" type="button">Make payment</button>
+                            </div>
+                        </div>
+                        <div class="row" style="display:none;">
+                            <div class="col-xs-12">
+                                <p class="payment-errors"></p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>      
 </div>
 
 
-<!--<div class="container-fluid">
-<p><a class="btn btn-large btn-info" id="get_all">{%trans%}Get all users info{%endtrans%}</a></p>-->
+
+<!-- CREDIT CARD FORM -->
 
 
-{% if user_manager.enable_change_username %}
-<p><a class="btn btn-large btn-info" href="{{ url_for('user.change_username') }}">{%trans%}Change institution name{%endtrans%}</a></p>
-{% endif %}
-{% if user_manager.enable_change_password %}
-<p><a class="btn btn-large btn-info" href="{{ url_for('user.change_password') }}">{%trans%}Change password{%endtrans%}</a></p>
-{% endif %}
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/1.2.3/jquery.payment.min.js"></script>
+<!-- If you're using Stripe for payments -->
 
-<script type="text/javascript" src="/static/user/app.js"></script>
+<style type="text/css">
+#credit-card-form {
+	display: none;
+}
+
+
+.credit-card-box .panel-title {
+    display: inline;
+    font-weight: bold;
+}
+.credit-card-box .form-control.error {
+    border-color: red;
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,0,0,0.6);
+}
+.credit-card-box label.error {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box .payment-errors {
+  font-weight: bold;
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.credit-card-box label {
+    display: block;
+}
+/* The old "center div vertically" hack */
+.credit-card-box .display-table {
+    display: table;
+}
+.credit-card-box .display-tr {
+    display: table-row;
+}
+.credit-card-box .display-td {
+    display: table-cell;
+    vertical-align: middle;
+    width: 50%;
+}
+/* Just looks nicer */
+.credit-card-box .panel-heading img {
+    min-width: 180px;
+}
+
+
+</style>
+
+
+
+<div class="container-fluid">
+	<p><a class="btn btn-large btn-info" id="make_payment">{%trans%}Make payment{%endtrans%}</a></p>
+
+	{% if user_manager.enable_change_username %}
+	<p><a class="btn btn-large btn-info" href="{{ url_for('user.change_username') }}">{%trans%}Change institution name{%endtrans%}</a></p>
+	{% endif %}
+	{% if user_manager.enable_change_password %}
+	<p><a class="btn btn-large btn-info" href="{{ url_for('user.change_password') }}">{%trans%}Change password{%endtrans%}</a></p>
+	{% endif %}
+
+	<script type="text/javascript" src="/static/user/app.js"></script>
 
 </div>
+
+<script type="text/javascript">
+	$("#make_payment").click(function(){
+		$("#credit-card-form").css({"display":"inline-block"});
+	});
+</script>
 
 {% endblock %}
