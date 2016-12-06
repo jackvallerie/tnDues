@@ -56,7 +56,7 @@ def charge():
 @roles_required('admin')
 def admin():
   if request.method == 'GET':
-    return render_template('programs.html')
+    return render_template('admin.html')
 
 
 @app.route('/settings/countries', methods=['GET', 'POST', 'PUT'])
