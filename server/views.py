@@ -50,9 +50,17 @@ def charge():
 
 ################################################################
 # ADMIN SETTINGS 
-# TODO: Show this in the UI for ONLY admin users (add roles required)
+# Shown in the UI for ONLY admin users (add roles required)
 ################################################################
+@app.route('/admin', methods=['GET', 'POST', 'PUT'])
+@roles_required('admin')
+def admin():
+  if request.method == 'GET':
+    return render_template('programs.html')
+
+
 @app.route('/settings/countries', methods=['GET', 'POST', 'PUT'])
+@roles_required('admin')
 def countries():
   if request.method == 'GET':
     myform = CountryForm(request.form)
@@ -75,6 +83,7 @@ def upsert_country():
   return render_template('admin_settings/country.html', form=myform)
 
 @app.route('/settings/institutions', methods=['GET', 'POST', 'PUT'])
+@roles_required('admin')
 def settings_institutions():
   if request.method == 'GET':
     myform = InstitutionForm(request.form)

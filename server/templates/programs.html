@@ -3,6 +3,57 @@
 {% block content %}
 {% from "flask_user/_macros.html" import render_field, render_checkbox_field, render_submit_field %}
 
-Programs go here
+<div class="container-fluid">
+        <h1> Welcome back, {{ current_user.first_name }} </h1>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Email</th>
+              <th>Institution</th>
+              <th>Payment Date</th>
+              <th>Payment Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Max</td>
+              <td>Miller</td>
+              <td>max.miller@gmail.com</td>
+              <td>University California Berkeley</td>
+              <td>11/29/2016</td>
+              <td>25$</td>
+            </tr>
+            <tr>
+              <td>Derick</td>
+              <td>Steinman</td>
+              <td>d.steinman@gmail.com</td>
+              <td>Colby</td>
+              <td>12/2/2016</td>
+              <td>25$</td>
+            </tr>
+            <tr>
+              <td>Bernt</td>
+              <td>Gruber</td>
+              <td>bernt.gruber@msn.com</td>
+              <td>Universitat Berlin</td>
+              <td>10/12/2016</td>
+              <td>20$</td>
+            </tr>
+            <tr>
+              <td>Antoine</td>
+              <td>Griezman</td>
+              <td>a.gman@hotmail.fr</td>
+              <td>University of Paris</td>
+              <td>11/17/2016</td>
+              <td>50$</td>
+            </tr>
+
+          </tbody>
+        </table>
+</div>
+
+
 
 {% endblock %}

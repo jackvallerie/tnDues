@@ -31,6 +31,7 @@ def update_user():
 # INSTITUTIONS
 ##################################################
 @app.route('/api/institutions', methods=['GET', 'POST', 'PUT'])
+@roles_required('admin')
 def institutions():
   if request.method == 'GET':
     return get_institutions()
@@ -69,6 +70,7 @@ def update_institution():
 # TRANSACTIONS
 ##################################################
 @app.route('/api/transactions', methods=['GET', 'POST'])
+@roles_required('admin')
 def transactions():
   if request.method == 'GET':
     return get_transactions()
@@ -96,6 +98,7 @@ def post_transaction():
 # COUNTRIES
 ##################################################
 @app.route('/api/countries', methods=['GET'])
+@roles_required('admin')
 def get_countries():
   countries = Country.query.all()
   countrylist = []
