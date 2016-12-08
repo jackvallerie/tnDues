@@ -168,7 +168,7 @@
 
 
 <div class="container-fluid">
-	<p><a class="btn btn-large btn-info" id="make_payment">{%trans%}Make payment{%endtrans%}</a></p>
+	<p><a class="btn btn-large btn-info" href="/payment">{%trans%}Make payment{%endtrans%}</a></p>
 
 	{% if user_manager.enable_change_username %}
 	<p><a class="btn btn-large btn-info" href="{{ url_for('user.change_username') }}">{%trans%}Change institution name{%endtrans%}</a></p>
