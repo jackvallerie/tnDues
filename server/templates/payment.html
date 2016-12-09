@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h1>Welcome to Flask-Stripe </h1>
-  <h3>This is the payment page</h3>
   <br/>
   <form action="/charge" method="post">
-    <article>
-      <label>
-        <span>Want to register for the upcoming Taillores Conference? It's only {{ amount }} cents !</span>
-      </label>
-    </article>
     <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
             data-key="{{ key }}"
             data-description="A Flask Charge"
@@ -18,6 +11,7 @@
   <br/>
     <P><strong>Please Note:</strong> This app is running in test mode, use the following credit card information to make a purchase:
     <ul>
+      <li>Email: example@anything.com</li>
       <li>Credit card number: 4242-4242-4242-4242</li>
       <li>CVC: any 3-digit number</li>
       <li>Expiration date: any date in the future (MM/YY)</li>
